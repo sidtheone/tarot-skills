@@ -3,16 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Tarot Skills — Cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
   :root {
-    --bg: #0a0a0c;
-    --card-bg: #111114;
-    --border: #1e1e24;
-    --text: #e8e6e3;
-    --text-dim: #6b6b76;
-    --card-color: #ff4d4d;
+    --void: #08070b;
+    --obsidian: #0e0d12;
+    --smoke: #1a1820;
+    --ash: #2a2833;
+    --silver: #8a8694;
+    --bone: #d4d0c8;
+    --gold: #c9a84c;
+    --gold-dim: rgba(201, 168, 76, 0.15);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,27 +24,57 @@
     width: 1000px;
     height: 420px;
     overflow: hidden;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
+    background: var(--void);
+    color: var(--bone);
+    font-family: 'Crimson Text', Georgia, serif;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
   }
 
-  /* Background characters — Roman numerals */
+  /* Noise texture */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Starburst rays from center-left */
+  body::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-conic-gradient(
+        from 0deg at 30% 50%,
+        rgba(201, 168, 76, 0.01) 0deg,
+        transparent 2deg,
+        transparent 10deg
+      );
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse 60% 80% at 30% 50%, black, transparent);
+    -webkit-mask-image: radial-gradient(ellipse 60% 80% at 30% 50%, black, transparent);
+  }
+
+  /* Background Roman numerals */
   .bg-chars {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 200px;
+    font-family: 'Playfair Display', serif;
+    font-size: 180px;
     font-weight: 900;
-    opacity: 0.06;
-    color: var(--text);
+    font-style: italic;
+    opacity: 0.04;
+    color: var(--gold);
     pointer-events: none;
     overflow: hidden;
   }
@@ -54,18 +87,15 @@
     padding: 0 56px;
   }
 
-  /* Card — exact match to cards.html styles */
+  /* Card */
   .card {
     flex-shrink: 0;
     width: 240px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
+    background: var(--obsidian);
+    border: 1px solid var(--ash);
     border-radius: 16px;
     overflow: hidden;
-  }
-
-  .card:hover {
-    border-color: var(--card-color);
+    box-shadow: 0 0 60px rgba(201, 168, 76, 0.12), 0 0 120px rgba(201, 168, 76, 0.04);
   }
 
   .card-header {
@@ -75,26 +105,28 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: linear-gradient(135deg, #1a0a0a, #1a1014);
+    background: linear-gradient(135deg, #12100a, #0e0d12);
   }
 
   .card-header .bg-glyph {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 180px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px;
     font-weight: 900;
+    font-style: italic;
     position: absolute;
-    opacity: 0.06;
+    opacity: 0.05;
     user-select: none;
     line-height: 1;
+    color: var(--gold);
   }
 
   .card-number {
     position: absolute;
     top: 12px;
     right: 12px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Space Mono', monospace;
     font-size: 0.65rem;
-    color: var(--text-dim);
+    color: var(--silver);
     opacity: 0.5;
   }
 
@@ -103,7 +135,7 @@
     z-index: 1;
     width: 100px;
     height: 100px;
-    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.4));
+    filter: drop-shadow(0 4px 24px rgba(201, 168, 76, 0.2));
   }
 
   .card-body {
@@ -111,26 +143,29 @@
   }
 
   .card-name {
-    font-family: 'Noto Serif SC', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 2px;
     display: flex;
     align-items: baseline;
     gap: 8px;
+    color: var(--bone);
   }
 
   .card-name .numeral {
-    font-size: 0.95rem;
-    opacity: 0.5;
+    font-size: 0.85rem;
+    opacity: 0.4;
+    font-style: italic;
   }
 
   .card-persona {
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--card-color);
+    letter-spacing: 0.12em;
+    color: var(--gold);
     margin-bottom: 10px;
   }
 
@@ -142,33 +177,23 @@
   }
 
   .technique-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
     padding: 3px 8px;
     border-radius: 100px;
-    border: 1px solid var(--border);
-    color: var(--text-dim);
-    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--ash);
+    color: var(--silver);
+    background: rgba(201, 168, 76, 0.04);
   }
 
   .card-mechanic {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--silver);
   }
 
-  .mechanic-label {
-    color: var(--text-dim);
-  }
-
-  .mechanic-value {
-    padding: 2px 10px;
-    border-radius: 4px;
-    font-weight: 500;
-    background: color-mix(in srgb, var(--card-color) 15%, transparent);
-    color: var(--card-color);
+  .card-mechanic .mechanic-value {
+    color: var(--gold);
   }
 
   /* Right side */
@@ -177,91 +202,124 @@
   }
 
   .right h1 {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 46px;
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
     font-weight: 900;
+    font-style: italic;
     line-height: 1.1;
     margin-bottom: 14px;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
   }
 
   .right h1 span {
-    background: linear-gradient(135deg, #7b2ff7, #ffd700);
+    background: linear-gradient(135deg, #c9a84c, #e8d5a0, #c9a84c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .right .subtitle {
-    font-size: 15px;
-    color: var(--text-dim);
+    font-family: 'Crimson Text', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--silver);
     line-height: 1.55;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
     max-width: 460px;
   }
 
   .stats {
     display: flex;
-    gap: 36px;
+    gap: 40px;
   }
 
   .stat .num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 30px;
+    font-family: 'Space Mono', monospace;
+    font-size: 28px;
     font-weight: 700;
-    color: var(--card-color);
+    color: var(--gold);
     line-height: 1;
   }
 
   .stat .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--text-dim);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--silver);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     margin-top: 4px;
+  }
+
+  /* Ornamental line under subtitle */
+  .ornament {
+    width: 120px;
+    height: 12px;
+    margin-bottom: 28px;
+    opacity: 0.35;
   }
 </style>
 </head>
 <body>
 
 <div class="bg-chars">
-  <span>XIII</span>
-  <span>XVI</span>
-  <span>0</span>
   <span>XXI</span>
+  <span>0</span>
+  <span>XIII</span>
+  <span>VIII</span>
 </div>
 
 <div class="container">
   <div class="card">
     <div class="card-header">
-      <span class="bg-glyph">XIII</span>
-      <span class="card-number">13/22</span>
-      <!-- Skull SVG -->
+      <span class="bg-glyph">XXI</span>
+      <span class="card-number">XXI/XXI</span>
+      <!-- The World SVG — dancing figure in laurel wreath -->
       <svg viewBox="0 0 120 120" fill="none">
-        <circle cx="60" cy="52" r="30" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="2"/>
-        <circle cx="48" cy="46" r="6" fill="#1a0f0f" stroke="#ff4d4d" stroke-width="1.5"/>
-        <circle cx="72" cy="46" r="6" fill="#1a0f0f" stroke="#ff4d4d" stroke-width="1.5"/>
-        <path d="M50 62 Q55 58 60 62 Q65 58 70 62" stroke="#ff4d4d" stroke-width="1.5" fill="none"/>
-        <path d="M48 82 L48 70 Q60 76 72 70 L72 82" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="1.5"/>
-        <line x1="54" y1="70" x2="54" y2="82" stroke="#ff4d4d" stroke-width="1"/>
-        <line x1="60" y1="72" x2="60" y2="82" stroke="#ff4d4d" stroke-width="1"/>
-        <line x1="66" y1="70" x2="66" y2="82" stroke="#ff4d4d" stroke-width="1"/>
+        <ellipse cx="60" cy="58" rx="32" ry="38" stroke="#c9a84c" stroke-width="2" fill="none"/>
+        <path d="M28 58 Q30 50 32 45" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+        <path d="M28 58 Q30 66 32 71" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+        <path d="M92 58 Q90 50 88 45" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+        <path d="M92 58 Q90 66 88 71" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+        <path d="M48 22 Q60 18 72 22" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+        <path d="M48 94 Q60 98 72 94" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+        <circle cx="60" cy="42" r="5" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+        <path d="M60 47 Q58 55 56 62 Q54 68 52 72" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+        <path d="M58 52 Q52 50 48 48" stroke="#c9a84c" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M59 54 Q66 53 70 50" stroke="#c9a84c" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M54 68 Q58 72 62 76" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+        <path d="M56 64 Q60 68 66 66" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M48 48 Q44 44 42 40" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.4"/>
+        <path d="M70 50 Q74 46 76 42" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.4"/>
+        <circle cx="20" cy="18" r="3" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M17 20 Q15 24 17 26" stroke="#c9a84c" stroke-width="0.5" opacity="0.4"/>
+        <path d="M23 20 Q25 24 23 26" stroke="#c9a84c" stroke-width="0.5" opacity="0.4"/>
+        <path d="M97 16 Q100 14 103 16 Q100 18 97 16" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M98 18 L100 22" stroke="#c9a84c" stroke-width="0.5" opacity="0.4"/>
+        <path d="M102 18 L100 22" stroke="#c9a84c" stroke-width="0.5" opacity="0.4"/>
+        <path d="M17 100 Q15 97 17 95" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M23 100 Q25 97 23 95" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.5"/>
+        <circle cx="20" cy="102" r="2.5" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.4"/>
+        <circle cx="100" cy="100" r="3" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M96 98 Q94 96 96 94" stroke="#c9a84c" stroke-width="0.5" opacity="0.4"/>
+        <path d="M104 98 Q106 96 104 94" stroke="#c9a84c" stroke-width="0.5" opacity="0.4"/>
+        <path d="M97 97 Q94 96 93 94" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+        <circle cx="60" cy="16" r="1" fill="#c9a84c" opacity="0.3"/>
+        <circle cx="60" cy="100" r="1" fill="#c9a84c" opacity="0.3"/>
+        <circle cx="22" cy="58" r="1" fill="#c9a84c" opacity="0.2"/>
+        <circle cx="98" cy="58" r="1" fill="#c9a84c" opacity="0.2"/>
       </svg>
     </div>
     <div class="card-body">
-      <div class="card-name">Death <span class="numeral">XIII</span></div>
-      <div class="card-persona">The Chaos Agent</div>
+      <div class="card-name">The World <span class="numeral">XXI</span></div>
+      <div class="card-persona">The Spread</div>
       <div class="card-techniques">
-        <span class="technique-tag">Assumption Flip</span>
-        <span class="technique-tag">Hostile Input</span>
-        <span class="technique-tag">Delete Probe</span>
-        <span class="technique-tag">Scale Shift</span>
-        <span class="technique-tag">+5 more</span>
+        <span class="technique-tag">Card Selection</span>
+        <span class="technique-tag">Calibration</span>
+        <span class="technique-tag">Cross-Card Synthesis</span>
+        <span class="technique-tag">Tension Map</span>
       </div>
       <div class="card-mechanic">
-        <span class="mechanic-label">Success:</span>
-        <span class="mechanic-value">Survived: yes/no</span>
+        <span class="mechanic-value">Orchestrator</span>
       </div>
     </div>
   </div>
@@ -269,6 +327,11 @@
   <div class="right">
     <h1><span>The Major Arcana</span></h1>
     <p class="subtitle">Twenty-two cards. Twenty-two ways your thinking betrays you.</p>
+    <svg class="ornament" viewBox="0 0 120 12" fill="none">
+      <line x1="0" y1="6" x2="50" y2="6" stroke="#c9a84c" stroke-width="0.5"/>
+      <rect x="53" y="2" width="8" height="8" rx="1" transform="rotate(45 57 6)" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
+      <line x1="64" y1="6" x2="120" y2="6" stroke="#c9a84c" stroke-width="0.5"/>
+    </svg>
     <div class="stats">
       <div class="stat">
         <div class="num">22</div>
