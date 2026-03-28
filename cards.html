@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Major Arcana — 22 Cards That Break How You Think</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0c;
+    --card-bg: #111114;
+    --border: #1e1e24;
+    --text: #e8e6e3;
+    --text-dim: #6b6b76;
+    --accent: #7b2ff7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* === BACKGROUND STARBURST === */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1200px;
+    height: 1200px;
+    background: radial-gradient(ellipse at center,
+      rgba(123, 47, 247, 0.04) 0%,
+      rgba(123, 47, 247, 0.02) 25%,
+      rgba(199, 125, 255, 0.01) 40%,
+      transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* === HERO === */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 500px;
+    height: 300px;
+    background: radial-gradient(ellipse at center,
+      rgba(123, 47, 247, 0.12) 0%,
+      rgba(199, 125, 255, 0.06) 30%,
+      transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #333, transparent);
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, #7b2ff7, #c77dff, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* === SPREAD CONTAINER === */
+  .spread {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 24px 80px;
+    z-index: 1;
+  }
+
+  /* === CONSTELLATION LINES BETWEEN TIERS === */
+  .spread::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* === TIER === */
+  .tier {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+  .tier-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--text-dim);
+    opacity: 0.4;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .tier-label::before,
+  .tier-label::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(107, 107, 118, 0.3));
+  }
+
+  .tier-label::before {
+    right: calc(100% + 12px);
+    background: linear-gradient(90deg, transparent, rgba(107, 107, 118, 0.3));
+  }
+
+  .tier-label::after {
+    left: calc(100% + 12px);
+    background: linear-gradient(270deg, transparent, rgba(107, 107, 118, 0.3));
+  }
+
+  /* Connector lines between tiers */
+  .tier-connector {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(180deg, rgba(107, 107, 118, 0.15), rgba(107, 107, 118, 0.05));
+    margin: 0 auto 0;
+  }
+
+  .tier-cards {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 16px;
+    perspective: 800px;
+    flex-wrap: wrap;
+  }
+
+  /* === CARD ROTATIONS FOR ARC EFFECT === */
+
+  /* 1 card tier (foundation) */
+  .tier-foundation .tier-cards .card-slot:nth-child(1) { transform: rotate(0deg); }
+
+  /* 4 card tiers */
+  .tier-4 .tier-cards .card-slot:nth-child(1) { transform: rotate(-5deg) translateY(6px); }
+  .tier-4 .tier-cards .card-slot:nth-child(2) { transform: rotate(-1.5deg) translateY(0px); }
+  .tier-4 .tier-cards .card-slot:nth-child(3) { transform: rotate(1.5deg) translateY(0px); }
+  .tier-4 .tier-cards .card-slot:nth-child(4) { transform: rotate(5deg) translateY(6px); }
+
+  /* 5 card tiers */
+  .tier-5 .tier-cards .card-slot:nth-child(1) { transform: rotate(-6deg) translateY(8px); }
+  .tier-5 .tier-cards .card-slot:nth-child(2) { transform: rotate(-3deg) translateY(2px); }
+  .tier-5 .tier-cards .card-slot:nth-child(3) { transform: rotate(0deg) translateY(-2px); }
+  .tier-5 .tier-cards .card-slot:nth-child(4) { transform: rotate(3deg) translateY(2px); }
+  .tier-5 .tier-cards .card-slot:nth-child(5) { transform: rotate(6deg) translateY(8px); }
+
+  /* 6 card tiers */
+  .tier-6 .tier-cards .card-slot:nth-child(1) { transform: rotate(-7.5deg) translateY(12px); }
+  .tier-6 .tier-cards .card-slot:nth-child(2) { transform: rotate(-4.5deg) translateY(5px); }
+  .tier-6 .tier-cards .card-slot:nth-child(3) { transform: rotate(-1.5deg) translateY(0px); }
+  .tier-6 .tier-cards .card-slot:nth-child(4) { transform: rotate(1.5deg) translateY(0px); }
+  .tier-6 .tier-cards .card-slot:nth-child(5) { transform: rotate(4.5deg) translateY(5px); }
+  .tier-6 .tier-cards .card-slot:nth-child(6) { transform: rotate(7.5deg) translateY(12px); }
+
+  /* === CARD SLOT (wrapper for rotation) === */
+  .card-slot {
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-slot:hover {
+    transform: rotate(0deg) translateY(-12px) !important;
+    z-index: 100;
+  }
+
+  /* === COMPACT CARD === */
+  .card {
+    width: 200px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    border-color: var(--card-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px color-mix(in srgb, var(--card-color) 15%, transparent);
+  }
+
+  /* Apex card (The World) larger */
+  .tier-foundation .card {
+    width: 230px;
+  }
+
+  .tier-foundation .card .card-header {
+    height: 130px;
+  }
+
+  .tier-foundation .card .card-header svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Golden glow for The World */
+  .tier-foundation .card-slot {
+    position: relative;
+  }
+
+  .tier-foundation .card-slot::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: radial-gradient(ellipse at center,
+      rgba(255, 215, 0, 0.08) 0%,
+      rgba(255, 215, 0, 0.03) 40%,
+      transparent 70%);
+    border-radius: 24px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Center card of each tier slightly elevated */
+  .tier-4 .tier-cards .card-slot:nth-child(2) .card,
+  .tier-4 .tier-cards .card-slot:nth-child(3) .card,
+  .tier-5 .tier-cards .card-slot:nth-child(3) .card,
+  .tier-6 .tier-cards .card-slot:nth-child(3) .card,
+  .tier-6 .tier-cards .card-slot:nth-child(4) .card {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .card-header {
+    position: relative;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .card-header .bg-glyph {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 140px;
+    font-weight: 900;
+    position: absolute;
+    opacity: 0.06;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .card-header svg {
+    position: relative;
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+  }
+
+  .card-body {
+    padding: 14px 14px 16px;
+  }
+
+  .card-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 1px;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .card-name .numeral {
+    font-size: 0.75rem;
+    opacity: 0.5;
+  }
+
+  .card-persona {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--card-color);
+    margin-bottom: 8px;
+  }
+
+  .card-mechanic {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mechanic-label {
+    color: var(--text-dim);
+  }
+
+  .mechanic-value {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    background: color-mix(in srgb, var(--card-color) 15%, transparent);
+    color: var(--card-color);
+  }
+
+  .card-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    opacity: 0.5;
+  }
+
+  /* === HOVER EXPAND PANEL === */
+  .card-expand {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    width: 320px;
+    background: #151518;
+    border: 1px solid var(--card-color);
+    border-radius: 12px;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 200;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), 0 0 24px color-mix(in srgb, var(--card-color) 10%, transparent);
+  }
+
+  .card-slot:hover .card-expand {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(8px);
+  }
+
+  .card-expand .expand-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .card-expand .expand-name .numeral {
+    font-size: 0.85rem;
+    opacity: 0.5;
+  }
+
+  .card-expand .expand-persona {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--card-color);
+    margin-bottom: 10px;
+  }
+
+  .card-expand .expand-breaks {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .card-expand .expand-breaks strong {
+    color: var(--text);
+  }
+
+  .card-expand .expand-quote {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text);
+    opacity: 0.85;
+    line-height: 1.5;
+    padding: 10px 14px;
+    border-left: 2px solid var(--card-color);
+    margin-bottom: 14px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .card-expand .expand-techniques {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 12px;
+  }
+
+  .card-expand .technique-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .card-expand .expand-mechanic {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-expand .expand-mechanic .mechanic-label {
+    color: var(--text-dim);
+  }
+
+  .card-expand .expand-mechanic .mechanic-value {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  /* Per-card colors */
+  .card-fool { --card-color: #7ecba1; }
+  .card-magician { --card-color: #ffd700; }
+  .card-high-priestess { --card-color: #8b8bff; }
+  .card-empress { --card-color: #00cc88; }
+  .card-emperor { --card-color: #c4956a; }
+  .card-hierophant { --card-color: #e87da0; }
+  .card-lovers { --card-color: #ff6b9d; }
+  .card-chariot { --card-color: #ff8c42; }
+  .card-strength { --card-color: #59a5d8; }
+  .card-hermit { --card-color: #b8b8b8; }
+  .card-wheel { --card-color: #9b59b6; }
+  .card-justice { --card-color: #e74c3c; }
+  .card-hanged-man { --card-color: #1abc9c; }
+  .card-death { --card-color: #ff4d4d; }
+  .card-temperance { --card-color: #3498db; }
+  .card-devil { --card-color: #e85d75; }
+  .card-tower { --card-color: #ff6b35; }
+  .card-star { --card-color: #f1c40f; }
+  .card-moon { --card-color: #7b2ff7; }
+  .card-sun { --card-color: #f39c12; }
+  .card-judgement { --card-color: #e67e22; }
+  .card-world { --card-color: #b8b8b8; }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 40px 24px 60px;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer p {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+
+  .footer code {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(255,255,255,0.05);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 1100px) {
+    .tier-cards {
+      gap: 12px;
+    }
+    .card { width: 180px; }
+    .tier-foundation .card { width: 210px; }
+
+    .tier-4 .tier-cards .card-slot,
+    .tier-5 .tier-cards .card-slot,
+    .tier-6 .tier-cards .card-slot {
+      transform: rotate(0deg) translateY(0) !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .tier-cards {
+      gap: 10px;
+    }
+    .card { width: 160px; }
+    .tier-foundation .card { width: 180px; }
+    .card-header { height: 80px; }
+    .card-header svg { width: 48px; height: 48px; }
+    .card-name { font-size: 0.8rem; }
+    .card-persona { font-size: 0.6rem; }
+    .card-expand { width: 280px; }
+  }
+
+  @media (max-width: 520px) {
+    .card { width: 140px; }
+    .tier-foundation .card { width: 160px; }
+    .card-body { padding: 10px; }
+    .card-name { font-size: 0.75rem; }
+    .card-mechanic { font-size: 0.55rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1><span>The Major Arcana</span></h1>
+  <p>Twenty-two cards. Twenty-two ways your thinking betrays you.</p>
+</div>
+
+<div class="spread">
+
+  <!-- ============================== -->
+  <!-- TIER 1: THE FOUNDATION (1 card) -->
+  <!-- ============================== -->
+  <div class="tier tier-foundation">
+    <div class="tier-label">The Foundation</div>
+    <div class="tier-cards">
+
+      <!-- XXI. THE WORLD -->
+      <div class="card-slot">
+        <div class="card card-world">
+          <div class="card-header" style="background: linear-gradient(135deg, #121214, #141416)">
+            <span class="bg-glyph">XXI</span>
+            <span class="card-number">XXI/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <ellipse cx="60" cy="55" rx="30" ry="32" stroke="#b8b8b8" stroke-width="2" fill="none"/>
+              <path d="M38 35 Q35 30 38 25" stroke="#b8b8b8" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <path d="M82 35 Q85 30 82 25" stroke="#b8b8b8" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <path d="M38 75 Q35 80 38 85" stroke="#b8b8b8" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <path d="M82 75 Q85 80 82 85" stroke="#b8b8b8" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <circle cx="60" cy="45" r="6" stroke="#b8b8b8" stroke-width="1.5" fill="none"/>
+              <line x1="60" y1="51" x2="60" y2="68" stroke="#b8b8b8" stroke-width="1.5"/>
+              <line x1="60" y1="56" x2="52" y2="62" stroke="#b8b8b8" stroke-width="1.5"/>
+              <line x1="60" y1="56" x2="68" y2="62" stroke="#b8b8b8" stroke-width="1.5"/>
+              <line x1="60" y1="68" x2="54" y2="76" stroke="#b8b8b8" stroke-width="1.5"/>
+              <line x1="60" y1="68" x2="66" y2="76" stroke="#b8b8b8" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The World <span class="numeral">XXI</span></div>
+            <div class="card-persona">The Spread</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">N/A (orchestrator)</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-world">
+          <div class="expand-name">The World <span class="numeral">XXI</span></div>
+          <div class="expand-persona">The Spread</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Card selection paralysis</div>
+          <div class="expand-quote">"Three cards, maybe four. Never seven. Restraint is the skill."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Orchestrator</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">N/A (orchestrator)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tier-connector"></div>
+
+  <!-- ============================== -->
+  <!-- TIER 2: THE DESTRUCTIVE ARC (5 cards) -->
+  <!-- ============================== -->
+  <div class="tier tier-4">
+    <div class="tier-label">The Destructive Arc</div>
+    <div class="tier-cards">
+
+      <!-- XVI. THE TOWER -->
+      <div class="card-slot">
+        <div class="card card-tower">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a0e08, #1a1410)">
+            <span class="bg-glyph">XVI</span>
+            <span class="card-number">XVI/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <rect x="45" y="35" width="30" height="60" rx="2" stroke="#ff6b35" stroke-width="2" fill="none"/>
+              <rect x="50" y="45" width="8" height="8" rx="1" stroke="#ff6b35" stroke-width="1" fill="none" opacity="0.5"/>
+              <rect x="62" y="45" width="8" height="8" rx="1" stroke="#ff6b35" stroke-width="1" fill="none" opacity="0.5"/>
+              <rect x="50" y="60" width="8" height="8" rx="1" stroke="#ff6b35" stroke-width="1" fill="none" opacity="0.5"/>
+              <rect x="62" y="60" width="8" height="8" rx="1" stroke="#ff6b35" stroke-width="1" fill="none" opacity="0.5"/>
+              <polygon points="42,35 60,20 78,35" stroke="#ff6b35" stroke-width="2" fill="none"/>
+              <path d="M80 28 L90 15 L85 25 L95 20" stroke="#ff6b35" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="48" y1="38" x2="40" y2="30" stroke="#ff6b35" stroke-width="1.5" opacity="0.4"/>
+              <line x1="72" y1="42" x2="80" y2="38" stroke="#ff6b35" stroke-width="1.5" opacity="0.4"/>
+              <circle cx="42" cy="28" r="2" fill="#ff6b35" opacity="0.3"/>
+              <circle cx="82" cy="36" r="2" fill="#ff6b35" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Tower <span class="numeral">XVI</span></div>
+            <div class="card-persona">The Demolisher</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Standing: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-tower">
+          <div class="expand-name">The Tower <span class="numeral">XVI</span></div>
+          <div class="expand-persona">The Demolisher</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Structural inertia</div>
+          <div class="expand-quote">"Lightning hits the tower and what was built on false foundations falls."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Foundation Probe</span>
+            <span class="technique-tag">Load Test</span>
+            <span class="technique-tag">Gravity Well</span>
+            <span class="technique-tag">Parallel Structure</span>
+            <span class="technique-tag">Removal Simulation</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Standing: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- XV. THE DEVIL -->
+      <div class="card-slot">
+        <div class="card card-devil">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a0e14, #1a1018)">
+            <span class="bg-glyph">XV</span>
+            <span class="card-number">XV/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <path d="M35 55 L42 55" stroke="#e85d75" stroke-width="3" stroke-linecap="round"/>
+              <path d="M32 55 L28 50" stroke="#e85d75" stroke-width="2" stroke-linecap="round"/>
+              <path d="M32 55 L28 60" stroke="#e85d75" stroke-width="2" stroke-linecap="round"/>
+              <path d="M78 55 L85 55" stroke="#e85d75" stroke-width="3" stroke-linecap="round"/>
+              <path d="M88 55 L92 50" stroke="#e85d75" stroke-width="2" stroke-linecap="round"/>
+              <path d="M88 55 L92 60" stroke="#e85d75" stroke-width="2" stroke-linecap="round"/>
+              <path d="M42 50 Q45 40 50 50" stroke="#e85d75" stroke-width="2" fill="none"/>
+              <path d="M50 50 Q55 60 58 50" stroke="#e85d75" stroke-width="2" fill="none"/>
+              <path d="M62 50 Q65 40 70 50" stroke="#e85d75" stroke-width="2" fill="none"/>
+              <path d="M70 50 Q75 60 78 50" stroke="#e85d75" stroke-width="2" fill="none"/>
+              <path d="M42 60 Q45 70 50 60" stroke="#e85d75" stroke-width="2" fill="none"/>
+              <path d="M50 60 Q55 50 58 60" stroke="#e85d75" stroke-width="2" fill="none"/>
+              <path d="M62 60 Q65 70 70 60" stroke="#e85d75" stroke-width="2" fill="none"/>
+              <path d="M70 60 Q75 50 78 60" stroke="#e85d75" stroke-width="2" fill="none"/>
+              <line x1="45" y1="75" x2="48" y2="85" stroke="#e85d75" stroke-width="1.5" opacity="0.4" stroke-dasharray="3 3"/>
+              <line x1="75" y1="75" x2="72" y2="85" stroke="#e85d75" stroke-width="1.5" opacity="0.4" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Devil <span class="numeral">XV</span></div>
+            <div class="card-persona">The Chain-Breaker</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Chained: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-devil">
+          <div class="expand-name">The Devil <span class="numeral">XV</span></div>
+          <div class="expand-persona">The Chain-Breaker</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Sunk cost loyalty</div>
+          <div class="expand-quote">"The chains are unlocked. They always were."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Sunk Cost Audit</span>
+            <span class="technique-tag">Switching Cost Illusion</span>
+            <span class="technique-tag">Emotional Attachment</span>
+            <span class="technique-tag">Golden Handcuff</span>
+            <span class="technique-tag">Inherited Chain</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Chained: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- XIII. DEATH (center) -->
+      <div class="card-slot">
+        <div class="card card-death">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a0808, #1a0e0e)">
+            <span class="bg-glyph">XIII</span>
+            <span class="card-number">XIII/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="42" r="18" stroke="#ff4d4d" stroke-width="2" fill="none"/>
+              <circle cx="52" cy="38" r="5" fill="#1a0808" stroke="#ff4d4d" stroke-width="1.5"/>
+              <circle cx="68" cy="38" r="5" fill="#1a0808" stroke="#ff4d4d" stroke-width="1.5"/>
+              <path d="M52 50 L58 48 L62 48 L68 50" stroke="#ff4d4d" stroke-width="1.5" fill="none"/>
+              <line x1="55" y1="48" x2="55" y2="52" stroke="#ff4d4d" stroke-width="1" opacity="0.5"/>
+              <line x1="60" y1="48" x2="60" y2="53" stroke="#ff4d4d" stroke-width="1" opacity="0.5"/>
+              <line x1="65" y1="48" x2="65" y2="52" stroke="#ff4d4d" stroke-width="1" opacity="0.5"/>
+              <path d="M54 55 Q60 58 66 55" stroke="#ff4d4d" stroke-width="1" fill="none" opacity="0.4"/>
+              <line x1="40" y1="70" x2="80" y2="70" stroke="#ff4d4d" stroke-width="2"/>
+              <line x1="40" y1="70" x2="40" y2="90" stroke="#ff4d4d" stroke-width="2"/>
+              <line x1="80" y1="70" x2="80" y2="90" stroke="#ff4d4d" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Death <span class="numeral">XIII</span></div>
+            <div class="card-persona">The Chaos Agent</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Survived: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-death">
+          <div class="expand-name">Death <span class="numeral">XIII</span></div>
+          <div class="expand-persona">The Chaos Agent</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Agreeableness / sycophancy</div>
+          <div class="expand-quote">"POKE POKE POKE. If nothing flinches, you didn't poke hard enough."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Assumption Flip</span>
+            <span class="technique-tag">Hostile Input</span>
+            <span class="technique-tag">Scale Shift</span>
+            <span class="technique-tag">Delete Probe</span>
+            <span class="technique-tag">Replay Probe</span>
+            <span class="technique-tag">+4 more</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Survived: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- XVIII. THE MOON -->
+      <div class="card-slot">
+        <div class="card card-moon">
+          <div class="card-header" style="background: linear-gradient(135deg, #10081a, #14101a)">
+            <span class="bg-glyph">XVIII</span>
+            <span class="card-number">XVIII/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="55" cy="45" r="22" stroke="#7b2ff7" stroke-width="2" fill="none"/>
+              <circle cx="65" cy="40" r="18" fill="#10081a"/>
+              <circle cx="65" cy="40" r="18" stroke="#7b2ff7" stroke-width="0" fill="#10081a"/>
+              <path d="M40 80 Q50 75 60 80 Q70 85 80 80" stroke="#7b2ff7" stroke-width="1.5" fill="none" opacity="0.4"/>
+              <path d="M35 88 Q50 83 60 88 Q70 93 85 88" stroke="#7b2ff7" stroke-width="1" fill="none" opacity="0.2"/>
+              <circle cx="50" cy="78" r="1.5" fill="#7b2ff7" opacity="0.3"/>
+              <circle cx="70" cy="82" r="1.5" fill="#7b2ff7" opacity="0.3"/>
+              <circle cx="60" cy="76" r="1" fill="#7b2ff7" opacity="0.2"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Moon <span class="numeral">XVIII</span></div>
+            <div class="card-persona">The Shadow</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Illuminated: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-moon">
+          <div class="expand-name">The Moon <span class="numeral">XVIII</span></div>
+          <div class="expand-persona">The Shadow</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Happy path fixation</div>
+          <div class="expand-quote">"Moonlight reveals what daylight hides. Walk the path where things go wrong."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Silent Failure</span>
+            <span class="technique-tag">Partial Success</span>
+            <span class="technique-tag">The Cascade</span>
+            <span class="technique-tag">Temporal Shadow</span>
+            <span class="technique-tag">Human Path</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Illuminated: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- XV. THE DEVIL is already placed; this 5th slot is for a different card -->
+      <!-- Correction: The spec says Tower, Moon, Death (center), Devil. That's 4. Let me re-read. -->
+      <!-- "Death (XIII) / Tower (XVI) / Moon (XVIII) / Devil (XV) / Death is center" => 4 unique + Death center = actually the list is: Tower, Devil, Death (center), Moon, and we need a 5th -->
+      <!-- Re-reading: "Death (XIII) . Tower (XVI) . Moon (XVIII) . Devil (XV) . Death is center" - that's 4 cards listed with Death in center. But the spec says 5 cards. Looking again at the dot-separated list, there are 4 entries. I'll keep it as 5 with these 4 + add one more destructive-themed card or interpret as the user intended. The user explicitly says "5 cards" so I need 5. The listed cards are Death, Tower, Moon, Devil - that's 4. I'll interpret that the 5th position makes an asymmetric spread and just use these 4 cards plus... Looking at the remaining cards and the other tiers, let me check: the other tiers account for Fool, Hermit, High Priestess, Magician, Justice (5) + Hanged Man, Strength, Emperor, Hierophant, Chariot, Sun (6) + Empress, Temperance, Lovers, Star, Wheel, Judgement (6) = 5+6+6 = 17 + 4 destructive + 1 World = 22. So Tier 2 should have 4, not 5. But the user said 5. Let me just go with 5 and keep the 4 that are listed. Actually wait - the user's Tier 5 (creative) lists 6 cards, not 5. Let me recount: Tier 1: 1, Tier 2: user says 5 but lists 4, Tier 3: 5, Tier 4: 6, Tier 5: user says 5 but lists 6. Total: 1+4+5+6+6 = 22. So Tier 2 has 4 cards and Tier 5 has 6 cards. I'll adjust. -->
+      <!-- Actually I already have 4 cards above. Total = 1 + 4 + 5 + 6 + 6 = 22. Perfect. Let me restructure Tier 2 as a 4-card tier. -->
+
+    </div>
+  </div>
+
+  <div class="tier-connector"></div>
+
+  <!-- ============================== -->
+  <!-- TIER 3: THE ANALYTICAL ARC (5 cards) -->
+  <!-- ============================== -->
+  <div class="tier tier-5">
+    <div class="tier-label">The Analytical Arc</div>
+    <div class="tier-cards">
+
+      <!-- 0. THE FOOL -->
+      <div class="card-slot">
+        <div class="card card-fool">
+          <div class="card-header" style="background: linear-gradient(135deg, #0e1810, #0a1410)">
+            <span class="bg-glyph">0</span>
+            <span class="card-number">00/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="35" r="10" stroke="#7ecba1" stroke-width="2" fill="none"/>
+              <line x1="60" y1="45" x2="60" y2="75" stroke="#7ecba1" stroke-width="2"/>
+              <line x1="60" y1="55" x2="45" y2="65" stroke="#7ecba1" stroke-width="2"/>
+              <line x1="60" y1="55" x2="75" y2="65" stroke="#7ecba1" stroke-width="2"/>
+              <line x1="60" y1="75" x2="48" y2="90" stroke="#7ecba1" stroke-width="2"/>
+              <line x1="60" y1="75" x2="72" y2="90" stroke="#7ecba1" stroke-width="2"/>
+              <path d="M72 90 L72 105" stroke="#7ecba1" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+              <rect x="65" y="85" width="30" height="25" rx="2" fill="none" stroke="#7ecba1" stroke-width="1.5" opacity="0.4"/>
+              <line x1="65" y1="95" x2="95" y2="95" stroke="#7ecba1" stroke-width="1" opacity="0.2"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Fool <span class="numeral">0</span></div>
+            <div class="card-persona">The Beginner</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Fresh: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-fool">
+          <div class="expand-name">The Fool <span class="numeral">0</span></div>
+          <div class="expand-persona">The Beginner</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Expertise bias</div>
+          <div class="expand-quote">"Why is this so complicated? What if a beginner looked at this?"</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">First Contact</span>
+            <span class="technique-tag">Name Audit</span>
+            <span class="technique-tag">Why-Chain</span>
+            <span class="technique-tag">Jargon Detector</span>
+            <span class="technique-tag">Path Trace</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Fresh: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- IX. THE HERMIT -->
+      <div class="card-slot">
+        <div class="card card-hermit">
+          <div class="card-header" style="background: linear-gradient(135deg, #121214, #141416)">
+            <span class="bg-glyph">IX</span>
+            <span class="card-number">IX/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <polygon points="60,30 50,50 70,50" stroke="#b8b8b8" stroke-width="2" fill="none"/>
+              <rect x="55" y="50" width="10" height="20" stroke="#b8b8b8" stroke-width="1.5" fill="none"/>
+              <circle cx="60" cy="40" r="4" fill="#b8b8b8" opacity="0.6"/>
+              <line x1="60" y1="70" x2="60" y2="90" stroke="#b8b8b8" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="60" cy="38" r="8" stroke="#b8b8b8" stroke-width="1" opacity="0.2"/>
+              <circle cx="60" cy="38" r="12" stroke="#b8b8b8" stroke-width="0.5" opacity="0.1"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Hermit <span class="numeral">IX</span></div>
+            <div class="card-persona">The Depth-Seeker</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Deep: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-hermit">
+          <div class="expand-name">The Hermit <span class="numeral">IX</span></div>
+          <div class="expand-persona">The Depth-Seeker</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Completeness theater</div>
+          <div class="expand-quote">"Everyone mapped the cave entrance. I walked into the passage nobody followed."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">The Descent</span>
+            <span class="technique-tag">The Root</span>
+            <span class="technique-tag">The Edge</span>
+            <span class="technique-tag">Assumption Chain</span>
+            <span class="technique-tag">Time Depth</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Deep: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- II. THE HIGH PRIESTESS (center) -->
+      <div class="card-slot">
+        <div class="card card-high-priestess">
+          <div class="card-header" style="background: linear-gradient(135deg, #0e0e1a, #10101a)">
+            <span class="bg-glyph">II</span>
+            <span class="card-number">II/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <rect x="30" y="25" width="8" height="70" rx="4" stroke="#8b8bff" stroke-width="2" fill="none"/>
+              <rect x="82" y="25" width="8" height="70" rx="4" stroke="#8b8bff" stroke-width="2" fill="none"/>
+              <path d="M38 40 Q60 35 82 40" stroke="#8b8bff" stroke-width="1" opacity="0.3"/>
+              <path d="M38 50 Q60 45 82 50" stroke="#8b8bff" stroke-width="1" opacity="0.2"/>
+              <path d="M38 60 Q60 55 82 60" stroke="#8b8bff" stroke-width="1" opacity="0.15"/>
+              <circle cx="60" cy="48" r="14" stroke="#8b8bff" stroke-width="1.5" fill="none" opacity="0.6"/>
+              <path d="M54 42 A8 8 0 0 1 66 42 A8 8 0 0 1 60 55 A8 8 0 0 0 54 42" fill="#8b8bff" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">High Priestess <span class="numeral">II</span></div>
+            <div class="card-persona">The Reader</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Surfaced: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-high-priestess">
+          <div class="expand-name">The High Priestess <span class="numeral">II</span></div>
+          <div class="expand-persona">The Reader</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Context blindness</div>
+          <div class="expand-quote">"What does the silence between these lines tell you?"</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">The Omission</span>
+            <span class="technique-tag">The Asymmetry</span>
+            <span class="technique-tag">The Implication</span>
+            <span class="technique-tag">The Audience Gap</span>
+            <span class="technique-tag">The Contradiction</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Surfaced: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- I. THE MAGICIAN -->
+      <div class="card-slot">
+        <div class="card card-magician">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a1400, #1a1810)">
+            <span class="bg-glyph">I</span>
+            <span class="card-number">I/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <line x1="60" y1="15" x2="60" y2="70" stroke="#ffd700" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="60" cy="12" r="4" fill="#ffd700" opacity="0.8"/>
+              <circle cx="40" cy="85" r="8" stroke="#ffd700" stroke-width="1.5" fill="none"/>
+              <rect x="56" y="80" width="10" height="14" rx="1" stroke="#ffd700" stroke-width="1.5" fill="none"/>
+              <polygon points="80,78 86,92 74,92" stroke="#ffd700" stroke-width="1.5" fill="none"/>
+              <line x1="25" y1="95" x2="35" y2="105" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="35" y1="95" x2="25" y2="105" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M30 72 Q60 65 90 72" stroke="#ffd700" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Magician <span class="numeral">I</span></div>
+            <div class="card-persona">The Resourceful</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Found: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-magician">
+          <div class="expand-name">The Magician <span class="numeral">I</span></div>
+          <div class="expand-persona">The Resourceful</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Tool/dependency addiction</div>
+          <div class="expand-quote">"Everything you need is already on the table. You just have to look."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">The Inventory</span>
+            <span class="technique-tag">The 80% Test</span>
+            <span class="technique-tag">Supply Chain</span>
+            <span class="technique-tag">Migration Cost</span>
+            <span class="technique-tag">Native Path</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Found: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- XI. JUSTICE -->
+      <div class="card-slot">
+        <div class="card card-justice">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a0a0a, #1a1010)">
+            <span class="bg-glyph">XI</span>
+            <span class="card-number">XI/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <line x1="60" y1="25" x2="60" y2="85" stroke="#e74c3c" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="30" y1="45" x2="90" y2="45" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/>
+              <path d="M30 45 L22 65 L38 65 Z" stroke="#e74c3c" stroke-width="1.5" fill="none"/>
+              <path d="M90 45 L82 65 L98 65 Z" stroke="#e74c3c" stroke-width="1.5" fill="none"/>
+              <line x1="22" y1="65" x2="38" y2="65" stroke="#e74c3c" stroke-width="1.5"/>
+              <line x1="82" y1="65" x2="98" y2="65" stroke="#e74c3c" stroke-width="1.5"/>
+              <circle cx="60" cy="25" r="4" fill="#e74c3c" opacity="0.5"/>
+              <line x1="50" y1="85" x2="70" y2="85" stroke="#e74c3c" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Justice <span class="numeral">XI</span></div>
+            <div class="card-persona">The Arbiter</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Decided: option/draw</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-justice">
+          <div class="expand-name">Justice <span class="numeral">XI</span></div>
+          <div class="expand-persona">The Arbiter</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> False equivalence</div>
+          <div class="expand-quote">"The scales tip. That's the point -- they're not decorative."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Criteria Stack</span>
+            <span class="technique-tag">The Tiebreaker</span>
+            <span class="technique-tag">Regret Test</span>
+            <span class="technique-tag">Practitioner Test</span>
+            <span class="technique-tag">Default Test</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Decided: option/draw</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tier-connector"></div>
+
+  <!-- ============================== -->
+  <!-- TIER 4: THE META-THINKING ARC (6 cards) -->
+  <!-- ============================== -->
+  <div class="tier tier-6">
+    <div class="tier-label">The Meta-Thinking Arc</div>
+    <div class="tier-cards">
+
+      <!-- XII. THE HANGED MAN -->
+      <div class="card-slot">
+        <div class="card card-hanged-man">
+          <div class="card-header" style="background: linear-gradient(135deg, #0a1814, #0a1418)">
+            <span class="bg-glyph">XII</span>
+            <span class="card-number">XII/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <line x1="40" y1="25" x2="80" y2="25" stroke="#1abc9c" stroke-width="2"/>
+              <line x1="60" y1="25" x2="60" y2="50" stroke="#1abc9c" stroke-width="2"/>
+              <circle cx="60" cy="65" r="10" stroke="#1abc9c" stroke-width="2" fill="none"/>
+              <line x1="60" y1="55" x2="60" y2="50" stroke="#1abc9c" stroke-width="2"/>
+              <line x1="60" y1="75" x2="60" y2="85" stroke="#1abc9c" stroke-width="2"/>
+              <line x1="60" y1="80" x2="50" y2="90" stroke="#1abc9c" stroke-width="1.5"/>
+              <line x1="60" y1="80" x2="70" y2="90" stroke="#1abc9c" stroke-width="1.5"/>
+              <line x1="55" y1="55" x2="48" y2="48" stroke="#1abc9c" stroke-width="1.5"/>
+              <line x1="65" y1="55" x2="72" y2="48" stroke="#1abc9c" stroke-width="1.5"/>
+              <circle cx="57" cy="63" r="1.5" fill="#1abc9c" opacity="0.6"/>
+              <circle cx="63" cy="63" r="1.5" fill="#1abc9c" opacity="0.6"/>
+              <path d="M57 68 Q60 70 63 68" stroke="#1abc9c" stroke-width="1" fill="none"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Hanged Man <span class="numeral">XII</span></div>
+            <div class="card-persona">The Reframer</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Reframed: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-hanged-man">
+          <div class="expand-name">The Hanged Man <span class="numeral">XII</span></div>
+          <div class="expand-persona">The Reframer</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Framing compliance</div>
+          <div class="expand-quote">"What looked like the floor is the ceiling. What if the problem is wrong?"</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">The Inversion</span>
+            <span class="technique-tag">Stakeholder Swap</span>
+            <span class="technique-tag">Constraint Audit</span>
+            <span class="technique-tag">Zoom Shift</span>
+            <span class="technique-tag">The Negation</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Reframed: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIII. STRENGTH -->
+      <div class="card-slot">
+        <div class="card card-strength">
+          <div class="card-header" style="background: linear-gradient(135deg, #0a1018, #0e1418)">
+            <span class="bg-glyph">VIII</span>
+            <span class="card-number">VIII/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <ellipse cx="65" cy="65" rx="22" ry="16" stroke="#59a5d8" stroke-width="1.5" fill="none" opacity="0.6"/>
+              <path d="M48 58 Q42 52 48 46 Q54 40 60 46" stroke="#59a5d8" stroke-width="2" fill="none"/>
+              <path d="M82 58 Q88 52 82 46 Q76 40 70 46" stroke="#59a5d8" stroke-width="2" fill="none"/>
+              <path d="M48 58 L48 72" stroke="#59a5d8" stroke-width="2"/>
+              <path d="M82 58 L82 72" stroke="#59a5d8" stroke-width="2"/>
+              <path d="M48 72 Q65 80 82 72" stroke="#59a5d8" stroke-width="1.5" fill="none"/>
+              <circle cx="58" cy="60" r="2" fill="#59a5d8" opacity="0.5"/>
+              <circle cx="72" cy="60" r="2" fill="#59a5d8" opacity="0.5"/>
+              <path d="M50 35 Q65 28 80 35" stroke="#59a5d8" stroke-width="1.5" fill="none" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Strength <span class="numeral">VIII</span></div>
+            <div class="card-persona">The Patience</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Held: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-strength">
+          <div class="expand-name">Strength <span class="numeral">VIII</span></div>
+          <div class="expand-persona">The Patience</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Premature closure</div>
+          <div class="expand-quote">"The lion's mouth stays open. Not from weakness -- from strength."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Unasked Question</span>
+            <span class="technique-tag">Familiarity Trap</span>
+            <span class="technique-tag">Premature Consensus</span>
+            <span class="technique-tag">Reversibility Audit</span>
+            <span class="technique-tag">Missing Alternative</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Held: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- IV. THE EMPEROR -->
+      <div class="card-slot">
+        <div class="card card-emperor">
+          <div class="card-header" style="background: linear-gradient(135deg, #14100a, #181410)">
+            <span class="bg-glyph">IV</span>
+            <span class="card-number">IV/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <rect x="45" y="30" width="30" height="55" rx="2" stroke="#c4956a" stroke-width="2" fill="none"/>
+              <line x1="45" y1="45" x2="75" y2="45" stroke="#c4956a" stroke-width="1.5"/>
+              <rect x="50" y="32" width="20" height="10" rx="1" fill="#c4956a" opacity="0.15"/>
+              <line x1="60" y1="20" x2="60" y2="30" stroke="#c4956a" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="60" cy="16" r="5" stroke="#c4956a" stroke-width="1.5" fill="none"/>
+              <line x1="55" y1="16" x2="65" y2="16" stroke="#c4956a" stroke-width="1"/>
+              <line x1="60" y1="11" x2="60" y2="21" stroke="#c4956a" stroke-width="1"/>
+              <line x1="45" y1="85" x2="38" y2="95" stroke="#c4956a" stroke-width="2"/>
+              <line x1="75" y1="85" x2="82" y2="95" stroke="#c4956a" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Emperor <span class="numeral">IV</span></div>
+            <div class="card-persona">The Systems Thinker</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Governed: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-emperor">
+          <div class="expand-name">The Emperor <span class="numeral">IV</span></div>
+          <div class="expand-persona">The Systems Thinker</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Governance blindness</div>
+          <div class="expand-quote">"Stop blaming the developer. Look at what the system rewards."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Incentive Trace</span>
+            <span class="technique-tag">Feedback Loop</span>
+            <span class="technique-tag">Bottleneck Map</span>
+            <span class="technique-tag">Conway's Mirror</span>
+            <span class="technique-tag">Exception Audit</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Governed: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- V. THE HIEROPHANT -->
+      <div class="card-slot">
+        <div class="card card-hierophant">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a1018, #1a1014)">
+            <span class="bg-glyph">V</span>
+            <span class="card-number">V/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="30" r="12" stroke="#e87da0" stroke-width="2" fill="none"/>
+              <path d="M54 28 L60 22 L66 28" stroke="#e87da0" stroke-width="1.5" fill="none"/>
+              <path d="M54 32 L60 38 L66 32" stroke="#e87da0" stroke-width="1.5" fill="none"/>
+              <line x1="60" y1="42" x2="60" y2="75" stroke="#e87da0" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="54" y="75" width="12" height="6" rx="2" stroke="#e87da0" stroke-width="1.5" fill="none"/>
+              <rect x="52" y="81" width="16" height="3" rx="1" stroke="#e87da0" stroke-width="1" fill="none"/>
+              <circle cx="56" cy="55" r="2" fill="#e87da0" opacity="0.4"/>
+              <circle cx="64" cy="55" r="2" fill="#e87da0" opacity="0.4"/>
+              <circle cx="56" cy="65" r="2" fill="#e87da0" opacity="0.3"/>
+              <circle cx="64" cy="65" r="2" fill="#e87da0" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Hierophant <span class="numeral">V</span></div>
+            <div class="card-persona">The Cargo Cult Detector</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Earned: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-hierophant">
+          <div class="expand-name">The Hierophant <span class="numeral">V</span></div>
+          <div class="expand-persona">The Cargo Cult Detector</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Cargo culting</div>
+          <div class="expand-quote">"Netflix has microservices. You are not Netflix."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Origin Trace</span>
+            <span class="technique-tag">Scale Mismatch</span>
+            <span class="technique-tag">Prestige Test</span>
+            <span class="technique-tag">Missing Prerequisite</span>
+            <span class="technique-tag">Local Invention</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Earned: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VII. THE CHARIOT -->
+      <div class="card-slot">
+        <div class="card card-chariot">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a120a, #1a1410)">
+            <span class="bg-glyph">VII</span>
+            <span class="card-number">VII/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <line x1="60" y1="30" x2="35" y2="80" stroke="#ff8c42" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="60" y1="30" x2="85" y2="80" stroke="#ff8c42" stroke-width="2.5" stroke-linecap="round"/>
+              <polygon points="35,80 28,68 42,68" fill="#ff8c42" opacity="0.8"/>
+              <polygon points="85,80 78,68 92,68" fill="#ff8c42" opacity="0.8"/>
+              <circle cx="60" cy="28" r="5" fill="#ff8c42" opacity="0.5"/>
+              <line x1="40" y1="90" x2="80" y2="90" stroke="#ff8c42" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Chariot <span class="numeral">VII</span></div>
+            <div class="card-persona">The Narrative Breaker</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">True: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-chariot">
+          <div class="expand-name">The Chariot <span class="numeral">VII</span></div>
+          <div class="expand-persona">The Narrative Breaker</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Narrative fallacy</div>
+          <div class="expand-quote">"The explanation feels more satisfying than true. That's the tell."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Causation Audit</span>
+            <span class="technique-tag">Survivor Edit</span>
+            <span class="technique-tag">Hindsight Lens</span>
+            <span class="technique-tag">Complexity Collapse</span>
+            <span class="technique-tag">Counterfactual Test</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">True: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- XIX. THE SUN -->
+      <div class="card-slot">
+        <div class="card card-sun">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a1408, #1a180e)">
+            <span class="bg-glyph">XIX</span>
+            <span class="card-number">XIX/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="55" r="18" stroke="#f39c12" stroke-width="2" fill="none"/>
+              <circle cx="60" cy="55" r="8" fill="#f39c12" opacity="0.25"/>
+              <line x1="60" y1="30" x2="60" y2="22" stroke="#f39c12" stroke-width="2" stroke-linecap="round"/>
+              <line x1="60" y1="80" x2="60" y2="88" stroke="#f39c12" stroke-width="2" stroke-linecap="round"/>
+              <line x1="35" y1="55" x2="27" y2="55" stroke="#f39c12" stroke-width="2" stroke-linecap="round"/>
+              <line x1="85" y1="55" x2="93" y2="55" stroke="#f39c12" stroke-width="2" stroke-linecap="round"/>
+              <line x1="42" y1="37" x2="36" y2="31" stroke="#f39c12" stroke-width="2" stroke-linecap="round"/>
+              <line x1="78" y1="73" x2="84" y2="79" stroke="#f39c12" stroke-width="2" stroke-linecap="round"/>
+              <line x1="78" y1="37" x2="84" y2="31" stroke="#f39c12" stroke-width="2" stroke-linecap="round"/>
+              <line x1="42" y1="73" x2="36" y2="79" stroke="#f39c12" stroke-width="2" stroke-linecap="round"/>
+              <line x1="51" y1="31" x2="48" y2="24" stroke="#f39c12" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="69" y1="31" x2="72" y2="24" stroke="#f39c12" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="36" y1="44" x2="29" y2="41" stroke="#f39c12" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="84" y1="66" x2="91" y2="69" stroke="#f39c12" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Sun <span class="numeral">XIX</span></div>
+            <div class="card-persona">The Clarity Maker</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Clear: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-sun">
+          <div class="expand-name">The Sun <span class="numeral">XIX</span></div>
+          <div class="expand-persona">The Clarity Maker</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> False clarity</div>
+          <div class="expand-quote">"True sunlight shows things as they are -- including the shadows."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Confidence Gap</span>
+            <span class="technique-tag">Precision Trap</span>
+            <span class="technique-tag">Collapsed Uncertainty</span>
+            <span class="technique-tag">Unknown Unknown</span>
+            <span class="technique-tag">Honest Hedge</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Clear: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tier-connector"></div>
+
+  <!-- ============================== -->
+  <!-- TIER 5: THE CREATIVE ARC (6 cards) -->
+  <!-- ============================== -->
+  <div class="tier tier-6">
+    <div class="tier-label">The Creative Arc</div>
+    <div class="tier-cards">
+
+      <!-- III. THE EMPRESS -->
+      <div class="card-slot">
+        <div class="card card-empress">
+          <div class="card-header" style="background: linear-gradient(135deg, #0a1a14, #0a1410)">
+            <span class="bg-glyph">III</span>
+            <span class="card-number">III/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <path d="M45 45 L60 25 L75 45" stroke="#00cc88" stroke-width="2" fill="none"/>
+              <path d="M40 45 L80 45" stroke="#00cc88" stroke-width="2"/>
+              <circle cx="60" cy="40" r="3" fill="#00cc88" opacity="0.6"/>
+              <path d="M50 50 Q45 65 35 80" stroke="#00cc88" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M70 50 Q75 65 85 80" stroke="#00cc88" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M35 80 Q32 88 28 92" stroke="#00cc88" stroke-width="1" fill="none" opacity="0.5"/>
+              <path d="M85 80 Q88 88 92 92" stroke="#00cc88" stroke-width="1" fill="none" opacity="0.5"/>
+              <circle cx="33" cy="85" r="2" fill="#00cc88" opacity="0.3"/>
+              <circle cx="87" cy="85" r="2" fill="#00cc88" opacity="0.3"/>
+              <circle cx="28" cy="94" r="1.5" fill="#00cc88" opacity="0.2"/>
+              <circle cx="92" cy="94" r="1.5" fill="#00cc88" opacity="0.2"/>
+              <path d="M55 50 Q58 60 60 70 Q62 60 65 50" stroke="#00cc88" stroke-width="1" fill="none" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Empress <span class="numeral">III</span></div>
+            <div class="card-persona">The Builder</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Viable: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-empress">
+          <div class="expand-name">The Empress <span class="numeral">III</span></div>
+          <div class="expand-persona">The Builder</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Critique-only mode</div>
+          <div class="expand-quote">"Everyone's found the problems. Who's building the options?"</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">The Orthogonal</span>
+            <span class="technique-tag">Constraint Flip</span>
+            <span class="technique-tag">Existing Asset</span>
+            <span class="technique-tag">Ambitious Option</span>
+            <span class="technique-tag">The Incremental</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Viable: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- XIV. TEMPERANCE -->
+      <div class="card-slot">
+        <div class="card card-temperance">
+          <div class="card-header" style="background: linear-gradient(135deg, #0a1018, #0e141a)">
+            <span class="bg-glyph">XIV</span>
+            <span class="card-number">XIV/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <path d="M35 40 L35 70 Q35 75 40 75 L45 75 Q50 75 50 70 L50 40 Q50 35 45 35 L40 35 Q35 35 35 40 Z" stroke="#3498db" stroke-width="2" fill="none"/>
+              <path d="M70 40 L70 70 Q70 75 75 75 L80 75 Q85 75 85 70 L85 40 Q85 35 80 35 L75 35 Q70 35 70 40 Z" stroke="#3498db" stroke-width="2" fill="none"/>
+              <path d="M50 50 Q60 42 70 55" stroke="#3498db" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M50 60 Q60 68 70 55" stroke="#3498db" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round" stroke-dasharray="3 3"/>
+              <circle cx="42" cy="65" r="3" fill="#3498db" opacity="0.3"/>
+              <circle cx="78" cy="45" r="3" fill="#3498db" opacity="0.3"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Temperance <span class="numeral">XIV</span></div>
+            <div class="card-persona">The Synthesizer</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Binary: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-temperance">
+          <div class="expand-name">Temperance <span class="numeral">XIV</span></div>
+          <div class="expand-persona">The Synthesizer</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Binary thinking</div>
+          <div class="expand-quote">"Pour from one cup into the other. Not to mix -- to find the blend."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">The Spectrum</span>
+            <span class="technique-tag">Temporal Split</span>
+            <span class="technique-tag">Boundary Redraw</span>
+            <span class="technique-tag">Hybrid Architecture</span>
+            <span class="technique-tag">Escape Hatch</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Binary: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VI. THE LOVERS -->
+      <div class="card-slot">
+        <div class="card card-lovers">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a0a14, #1a1018)">
+            <span class="bg-glyph">VI</span>
+            <span class="card-number">VI/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="42" cy="50" r="18" stroke="#ff6b9d" stroke-width="2" fill="none"/>
+              <circle cx="78" cy="50" r="18" stroke="#ff6b9d" stroke-width="2" fill="none"/>
+              <path d="M56 42 Q60 38 64 42" stroke="#ff6b9d" stroke-width="1.5" fill="none" opacity="0.6"/>
+              <path d="M56 58 Q60 62 64 58" stroke="#ff6b9d" stroke-width="1.5" fill="none" opacity="0.6"/>
+              <line x1="60" y1="32" x2="60" y2="68" stroke="#ff6b9d" stroke-width="1" opacity="0.3" stroke-dasharray="3 3"/>
+              <circle cx="42" cy="50" r="3" fill="#ff6b9d" opacity="0.4"/>
+              <circle cx="78" cy="50" r="3" fill="#ff6b9d" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Lovers <span class="numeral">VI</span></div>
+            <div class="card-persona">The Values Auditor</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Aligned: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-lovers">
+          <div class="expand-name">The Lovers <span class="numeral">VI</span></div>
+          <div class="expand-persona">The Values Auditor</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Values misalignment</div>
+          <div class="expand-quote">"The choice reveals the chooser. Not what they said they'd choose."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Budget Test</span>
+            <span class="technique-tag">Tradeoff Reveal</span>
+            <span class="technique-tag">Exception Pattern</span>
+            <span class="technique-tag">Incentive Alignment</span>
+            <span class="technique-tag">Artifact Audit</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Aligned: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- XVII. THE STAR -->
+      <div class="card-slot">
+        <div class="card card-star">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a1400, #1a1810)">
+            <span class="bg-glyph">XVII</span>
+            <span class="card-number">XVII/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <polygon points="60,20 64,40 85,40 68,52 74,72 60,60 46,72 52,52 35,40 56,40" stroke="#f1c40f" stroke-width="2" fill="none"/>
+              <circle cx="60" cy="46" r="6" fill="#f1c40f" opacity="0.3"/>
+              <line x1="60" y1="14" x2="60" y2="20" stroke="#f1c40f" stroke-width="1.5" opacity="0.4"/>
+              <line x1="90" y1="40" x2="85" y2="40" stroke="#f1c40f" stroke-width="1.5" opacity="0.4"/>
+              <line x1="30" y1="40" x2="35" y2="40" stroke="#f1c40f" stroke-width="1.5" opacity="0.4"/>
+              <line x1="78" y1="76" x2="74" y2="72" stroke="#f1c40f" stroke-width="1.5" opacity="0.4"/>
+              <line x1="42" y1="76" x2="46" y2="72" stroke="#f1c40f" stroke-width="1.5" opacity="0.4"/>
+              <circle cx="40" cy="85" r="2" fill="#f1c40f" opacity="0.15"/>
+              <circle cx="80" cy="85" r="2" fill="#f1c40f" opacity="0.15"/>
+              <circle cx="60" cy="90" r="2" fill="#f1c40f" opacity="0.15"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">The Star <span class="numeral">XVII</span></div>
+            <div class="card-persona">The Signal Finder</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Strong: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-star">
+          <div class="expand-name">The Star <span class="numeral">XVII</span></div>
+          <div class="expand-persona">The Signal Finder</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Loss aversion in analysis</div>
+          <div class="expand-quote">"After the Tower falls, find what's still shining."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">The Survivor</span>
+            <span class="technique-tag">Quiet Excellence</span>
+            <span class="technique-tag">Compounding Strength</span>
+            <span class="technique-tag">Cultural Strength</span>
+            <span class="technique-tag">The Differentiator</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Strong: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- X. WHEEL OF FORTUNE -->
+      <div class="card-slot">
+        <div class="card card-wheel">
+          <div class="card-header" style="background: linear-gradient(135deg, #140e1a, #18101a)">
+            <span class="bg-glyph">X</span>
+            <span class="card-number">X/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="60" r="30" stroke="#9b59b6" stroke-width="2" fill="none"/>
+              <circle cx="60" cy="60" r="8" stroke="#9b59b6" stroke-width="1.5" fill="none"/>
+              <line x1="60" y1="30" x2="60" y2="90" stroke="#9b59b6" stroke-width="1" opacity="0.5"/>
+              <line x1="30" y1="60" x2="90" y2="60" stroke="#9b59b6" stroke-width="1" opacity="0.5"/>
+              <line x1="39" y1="39" x2="81" y2="81" stroke="#9b59b6" stroke-width="1" opacity="0.3"/>
+              <line x1="81" y1="39" x2="39" y2="81" stroke="#9b59b6" stroke-width="1" opacity="0.3"/>
+              <circle cx="60" cy="30" r="3" fill="#9b59b6" opacity="0.6"/>
+              <circle cx="60" cy="90" r="3" fill="#9b59b6" opacity="0.6"/>
+              <circle cx="30" cy="60" r="3" fill="#9b59b6" opacity="0.6"/>
+              <circle cx="90" cy="60" r="3" fill="#9b59b6" opacity="0.6"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Wheel of Fortune <span class="numeral">X</span></div>
+            <div class="card-persona">The Variance Reader</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Signal: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-wheel">
+          <div class="expand-name">Wheel of Fortune <span class="numeral">X</span></div>
+          <div class="expand-persona">The Variance Reader</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Determinism bias</div>
+          <div class="expand-quote">"Was that skill, or was that the wheel turning?"</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Sample Size Check</span>
+            <span class="technique-tag">Luck Extraction</span>
+            <span class="technique-tag">Reversion Warning</span>
+            <span class="technique-tag">Environment Scan</span>
+            <span class="technique-tag">Survivorship Filter</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Signal: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- XX. JUDGEMENT -->
+      <div class="card-slot">
+        <div class="card card-judgement">
+          <div class="card-header" style="background: linear-gradient(135deg, #1a1008, #1a1410)">
+            <span class="bg-glyph">XX</span>
+            <span class="card-number">XX/XXI</span>
+            <svg viewBox="0 0 120 120" fill="none">
+              <rect x="55" y="30" width="10" height="45" rx="5" stroke="#e67e22" stroke-width="2" fill="none"/>
+              <circle cx="60" cy="28" r="6" stroke="#e67e22" stroke-width="1.5" fill="none"/>
+              <path d="M65 40 Q75 38 82 45 Q88 52 80 55" stroke="#e67e22" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M80 55 Q72 58 70 52" stroke="#e67e22" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <line x1="60" y1="75" x2="60" y2="85" stroke="#e67e22" stroke-width="2"/>
+              <line x1="54" y1="85" x2="66" y2="85" stroke="#e67e22" stroke-width="2"/>
+              <line x1="50" y1="88" x2="70" y2="88" stroke="#e67e22" stroke-width="1.5"/>
+              <circle cx="60" cy="28" r="2" fill="#e67e22" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-name">Judgement <span class="numeral">XX</span></div>
+            <div class="card-persona">The Root Cause</div>
+            <div class="card-mechanic">
+              <span class="mechanic-label">Success:</span>
+              <span class="mechanic-value">Attributed: yes/no</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-expand card-judgement">
+          <div class="expand-name">Judgement <span class="numeral">XX</span></div>
+          <div class="expand-persona">The Root Cause</div>
+          <div class="expand-breaks"><strong>Breaks:</strong> Attribution error</div>
+          <div class="expand-quote">"The trumpet demands truth. Not the convenient truth -- the actual truth."</div>
+          <div class="expand-techniques">
+            <span class="technique-tag">Proximate vs Root</span>
+            <span class="technique-tag">Invisible Contributor</span>
+            <span class="technique-tag">Correlation Trap</span>
+            <span class="technique-tag">Wrong Level</span>
+            <span class="technique-tag">Repeated Failure</span>
+          </div>
+          <div class="expand-mechanic">
+            <span class="mechanic-label">Success:</span>
+            <span class="mechanic-value">Attributed: yes/no</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- SVG constellation lines connecting tiers -->
+<svg class="constellation-lines" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="line-fade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(107,107,118,0.08)"/>
+      <stop offset="50%" stop-color="rgba(107,107,118,0.04)"/>
+      <stop offset="100%" stop-color="rgba(107,107,118,0.08)"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="footer">
+  <p>
+    Install: <code>npx tarot-skills</code><br>
+    MIT License &middot; Twenty-two ways your thinking betrays you.
+  </p>
+</div>
+
+</body>
+</html>

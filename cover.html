@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tarot Skills — Cover</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0c;
+    --card-bg: #111114;
+    --border: #1e1e24;
+    --text: #e8e6e3;
+    --text-dim: #6b6b76;
+    --card-color: #ff4d4d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1000px;
+    height: 420px;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Background characters — Roman numerals */
+  .bg-chars {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 200px;
+    font-weight: 900;
+    opacity: 0.06;
+    color: var(--text);
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    z-index: 1;
+    padding: 0 56px;
+  }
+
+  /* Card — exact match to cards.html styles */
+  .card {
+    flex-shrink: 0;
+    width: 240px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    border-color: var(--card-color);
+  }
+
+  .card-header {
+    position: relative;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a0a0a, #1a1014);
+  }
+
+  .card-header .bg-glyph {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 180px;
+    font-weight: 900;
+    position: absolute;
+    opacity: 0.06;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .card-number {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    opacity: 0.5;
+  }
+
+  .card-header svg {
+    position: relative;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.4));
+  }
+
+  .card-body {
+    padding: 18px 20px;
+  }
+
+  .card-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .card-name .numeral {
+    font-size: 0.95rem;
+    opacity: 0.5;
+  }
+
+  .card-persona {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--card-color);
+    margin-bottom: 10px;
+  }
+
+  .card-techniques {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 12px;
+  }
+
+  .technique-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    padding: 3px 8px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .card-mechanic {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mechanic-label {
+    color: var(--text-dim);
+  }
+
+  .mechanic-value {
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    background: color-mix(in srgb, var(--card-color) 15%, transparent);
+    color: var(--card-color);
+  }
+
+  /* Right side */
+  .right {
+    flex: 1;
+  }
+
+  .right h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 46px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+  }
+
+  .right h1 span {
+    background: linear-gradient(135deg, #7b2ff7, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .right .subtitle {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin-bottom: 24px;
+    max-width: 460px;
+  }
+
+  .stats {
+    display: flex;
+    gap: 36px;
+  }
+
+  .stat .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--card-color);
+    line-height: 1;
+  }
+
+  .stat .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-chars">
+  <span>XIII</span>
+  <span>XVI</span>
+  <span>0</span>
+  <span>XXI</span>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <span class="bg-glyph">XIII</span>
+      <span class="card-number">13/22</span>
+      <!-- Skull SVG -->
+      <svg viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="52" r="30" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="2"/>
+        <circle cx="48" cy="46" r="6" fill="#1a0f0f" stroke="#ff4d4d" stroke-width="1.5"/>
+        <circle cx="72" cy="46" r="6" fill="#1a0f0f" stroke="#ff4d4d" stroke-width="1.5"/>
+        <path d="M50 62 Q55 58 60 62 Q65 58 70 62" stroke="#ff4d4d" stroke-width="1.5" fill="none"/>
+        <path d="M48 82 L48 70 Q60 76 72 70 L72 82" fill="#2a1a1a" stroke="#ff4d4d" stroke-width="1.5"/>
+        <line x1="54" y1="70" x2="54" y2="82" stroke="#ff4d4d" stroke-width="1"/>
+        <line x1="60" y1="72" x2="60" y2="82" stroke="#ff4d4d" stroke-width="1"/>
+        <line x1="66" y1="70" x2="66" y2="82" stroke="#ff4d4d" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Death <span class="numeral">XIII</span></div>
+      <div class="card-persona">The Chaos Agent</div>
+      <div class="card-techniques">
+        <span class="technique-tag">Assumption Flip</span>
+        <span class="technique-tag">Hostile Input</span>
+        <span class="technique-tag">Delete Probe</span>
+        <span class="technique-tag">Scale Shift</span>
+        <span class="technique-tag">+5 more</span>
+      </div>
+      <div class="card-mechanic">
+        <span class="mechanic-label">Success:</span>
+        <span class="mechanic-value">Survived: yes/no</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <h1><span>The Major Arcana</span></h1>
+    <p class="subtitle">Twenty-two cards. Twenty-two ways your thinking betrays you.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="num">22</div>
+        <div class="label">Cards</div>
+      </div>
+      <div class="stat">
+        <div class="num">22</div>
+        <div class="label">Defaults Broken</div>
+      </div>
+      <div class="stat">
+        <div class="num">117</div>
+        <div class="label">Arcana</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

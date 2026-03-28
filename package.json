@@ -1,0 +1,48 @@
+{
+  "name": "tarot-skills",
+  "version": "1.0.0",
+  "description": "Major Arcana skills for LLMs — 22 cards that break specific model defaults. Cross-model, tarot-themed behavioral prompts.",
+  "bin": {
+    "tarot-skills": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "death/",
+    "tower/",
+    "fool/",
+    "high-priestess/",
+    "hermit/",
+    "hanged-man/",
+    "magician/",
+    "world/",
+    "justice/",
+    "moon/",
+    "devil/",
+    "strength/",
+    "empress/",
+    "emperor/",
+    "hierophant/",
+    "lovers/",
+    "chariot/",
+    "wheel-of-fortune/",
+    "temperance/",
+    "star/",
+    "sun/",
+    "judgement/"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "ai-skills",
+    "prompt-engineering",
+    "code-review",
+    "architecture",
+    "tarot"
+  ],
+  "author": "sidhartharora",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sidtheone/tarot-skills"
+  }
+}
